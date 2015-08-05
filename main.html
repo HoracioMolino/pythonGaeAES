@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script  type="text/javascript" src="/js/jsbn.js"></script>
+<script  type="text/javascript" src="/js/jsbn2.js"></script>
+<script  type="text/javascript" src="/js/prng4.js"></script>
+<script  type="text/javascript" src="/js/rng.js"></script>
+<script  type="text/javascript" src="/js/rsa.js"></script>
+<script  type="text/javascript" src="/js/rsa2.js"></script>
+<script type="text/javascript">
+function Encrypt() {
+    var n_string = $('#modulus').val();
+    var e_string = $('#exponent').val();
+    var plaintext = $('#plain').val();
+    var rsa = new RSAKey();
+    rsa.setPublic(n_string, e_string);
+    var res = rsa.encrypt(plaintext);
+    $('#encrypted').val(res);
+}
+</script>
+</head>
+<body>
+<h2>Encrypt at form and decrypt at server parameters:</h2>
+<label for="modulus">Modulus</label>
+<textarea id="modulus"  name ="modulus" cols="60" rows="10">{{modulus}}</textarea><br>
+<label for="exponent">Exponent</label>
+<textarea id="exponent" name="exponent">{{exponent}}</textarea><br><br>
+<hr>
+<label for="plain">Plain</label>
+<textarea name="plain" id ="plain">This is a plain message from the client.</textarea><br>
+<button onclick="Encrypt()">Encrypt</button>
+<hr>
+<form  action="/" method="post" onsubmit="Enc()">
+<label for="encrypted">Encrypted</label>
+<textarea id="encrypted" name="encrypted"></textarea><br>
+<button>TO SERVER</button> </form>
+</body>
+</html>
